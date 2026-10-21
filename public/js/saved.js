@@ -1,0 +1,2 @@
+AuroraReady.then(async () => { if (!(await AuroraAuth.requireAuth())) return; const box = document.getElementById('list'); skeletons(box, 3);
+  try { const d = await AuroraAPI.get('/favourites'); box.innerHTML = d.items.length ? d.items.map(p => cardHTML(p, true)).join('') : '<p class="muted">Nothing saved yet. Tap ♡ on a property to keep it here.</p>'; wireHearts(box); } catch (e) { box.innerHTML = escapeHtml(e.message); } });

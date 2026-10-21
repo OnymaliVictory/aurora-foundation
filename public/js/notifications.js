@@ -1,0 +1,2 @@
+AuroraReady.then(async () => { if (!(await AuroraAuth.requireAuth())) return; const box = document.getElementById('n');
+  try { const d = await AuroraAPI.get('/notifications'); box.innerHTML = d.items.map(n => `<div class="glass-card pad"><b>${n.read ? '' : '● '}${escapeHtml(n.body)}</b><br><small class="muted">${timeAgo(n.created_at)}</small></div>`).join('') || '<p class="muted">Nothing yet.</p>'; AuroraAPI.post('/notifications/read').catch(() => {}); } catch (e) { box.textContent = e.message; } });

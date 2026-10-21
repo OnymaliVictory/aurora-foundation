@@ -1,0 +1,16 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sign in · Aurora Estates</title>
+<meta name="description" content="Sign in or create your Aurora Estates account."><script src="js/theme-init.js"></script>
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/aurora-app.css" id="aurora-app-css"><link rel="stylesheet" href="css/aurora-shared.css"><link rel="stylesheet" href="css/estates.css"><script src="js/theme-init.js"></script></head>
+<body data-active="account"><canvas id="aurora-canvas" aria-hidden="true"></canvas><div id="chrome-nav"></div><main class="wrap">
+<div class="glass-card pad stack" style="max-width:440px;margin:0 auto"><h1 class="page-title">Welcome to Aurora Estates</h1>
+<div class="tabs"><button type="button" class="btn-secondary on" id="t-in">Sign in</button><button type="button" class="btn-secondary" id="t-up">Create account</button></div>
+<form id="f" class="stack"><div id="up-only" class="stack" hidden><input class="form-input" name="full_name" placeholder="Full name" autocomplete="name"><input class="form-input" name="phone" placeholder="Phone (e.g. 0803…)" autocomplete="tel">
+<label class="muted">I am a…<select class="form-input" name="role"><option value="seeker">Buyer / renter</option><option value="agent">Real estate agent</option><option value="owner">Property owner / landlord</option></select></label></div>
+<input class="form-input" type="email" name="email" placeholder="Email" required autocomplete="email"><input class="form-input" type="password" name="password" placeholder="Password (8+ characters)" minlength="8" required autocomplete="current-password">
+<button class="btn-primary" id="go">Sign in</button><p id="err" class="muted" role="alert"></p></form>
+<button class="btn-secondary" id="google" type="button">Continue with Google</button><button class="btn-secondary btn-sm" id="forgot" type="button">Forgot password?</button>
+<div class="notice">⚠️ Aurora will never ask you to send money to an agent.</div></div>
+</main><div id="chrome-footer"></div><div id="toasts" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script><script src="js/supabase-client.js"></script><script src="js/app.js"></script><script src="js/aurora-bg.js"></script><script src="js/auth.js"></script>
+</body></html>

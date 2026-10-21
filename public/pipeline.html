@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pipeline · Aurora Estates</title>
+<meta name="description" content="Deal pipeline."><script src="js/theme-init.js"></script>
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/aurora-app.css" id="aurora-app-css"><link rel="stylesheet" href="css/aurora-shared.css"><link rel="stylesheet" href="css/estates.css"><script src="js/theme-init.js"></script></head>
+<body data-active="account"><canvas id="aurora-canvas" aria-hidden="true"></canvas><div id="chrome-nav"></div><main class="wrap">
+<h1 class="page-title">Deal pipeline</h1><p class="muted">Drag a card to move a deal. Tap ✕ to delete.</p>
+<form id="nd" class="glass-card pad filters"><select class="form-input" name="contact_id" id="dc" aria-label="Contact"><option value="">Contact…</option></select><select class="form-input" name="property_id" id="dp" aria-label="Property"><option value="">Property…</option></select>
+<input class="form-input" name="amount" type="number" min="0" placeholder="Amount ₦"><input class="form-input" name="commission_estimate" type="number" min="0" placeholder="Est. commission ₦"><input class="form-input" name="expected_close_date" type="date" aria-label="Expected close"><button class="btn-primary">+ New deal</button></form>
+<div id="stats" class="muted" style="margin:8px 0"></div><div id="board" style="display:flex;gap:12px;overflow-x:auto;padding-bottom:12px"></div>
+</main><div id="chrome-footer"></div><div id="toasts" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script><script src="js/supabase-client.js"></script><script src="js/app.js"></script><script src="js/aurora-bg.js"></script><script src="js/pipeline.js"></script>
+</body></html>

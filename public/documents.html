@@ -1,0 +1,13 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Documents · Aurora Estates</title>
+<meta name="description" content="Private deal and property documents."><script src="js/theme-init.js"></script>
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/aurora-app.css" id="aurora-app-css"><link rel="stylesheet" href="css/aurora-shared.css"><link rel="stylesheet" href="css/estates.css"><script src="js/theme-init.js"></script></head>
+<body data-active="account"><canvas id="aurora-canvas" aria-hidden="true"></canvas><div id="chrome-nav"></div><main class="wrap">
+<h1 class="page-title">Documents</h1><p class="muted">Private. Download links expire after 90 seconds.</p>
+<form id="up" class="glass-card pad filters"><input class="form-input" type="file" id="file" required accept="application/pdf,image/jpeg,image/png,image/webp" aria-label="File"><input class="form-input" name="name" placeholder="Name (optional)" maxlength="120">
+<select class="form-input" name="category" aria-label="Category"><option value="contract">Contract</option><option value="tenancy_agreement">Tenancy agreement</option><option value="receipt">Receipt</option><option value="survey">Survey</option><option value="c_of_o_copy">C of O copy</option><option value="id">ID</option><option value="other">Other</option></select>
+<select class="form-input" name="deal_id" id="dd" aria-label="Deal"><option value="">Link to deal (optional)</option></select><button class="btn-primary">Upload</button></form>
+<div id="list" class="stack" style="margin-top:16px"></div>
+</main><div id="chrome-footer"></div><div id="toasts" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script><script src="js/supabase-client.js"></script><script src="js/app.js"></script><script src="js/aurora-bg.js"></script><script src="js/documents.js"></script>
+</body></html>

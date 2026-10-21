@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Calculators · Aurora Estates</title>
+<meta name="description" content="Rent affordability and mortgage / installment calculators."><script src="js/theme-init.js"></script>
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/aurora-app.css" id="aurora-app-css"><link rel="stylesheet" href="css/aurora-shared.css"><link rel="stylesheet" href="css/estates.css"><script src="js/theme-init.js"></script></head>
+<body data-active="account"><canvas id="aurora-canvas" aria-hidden="true"></canvas><div id="chrome-nav"></div><main class="wrap">
+<h1 class="page-title">Calculators</h1><p class="muted">Estimates only. They are not financial advice.</p>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+<form class="glass-card pad stack" id="a"><h2 class="section-label">Rent affordability</h2><label class="muted">Monthly income (₦)<input class="form-input" name="inc" type="number" min="0" value="500000"></label><label class="muted">Share of income for rent (%)<input class="form-input" name="pct" type="number" min="5" max="60" value="30"></label><div id="ao" class="notice"></div></form>
+<form class="glass-card pad stack" id="m"><h2 class="section-label">Mortgage / installment</h2><label class="muted">Property price (₦)<input class="form-input" name="price" type="number" min="0" value="45000000"></label><label class="muted">Down payment (%)<input class="form-input" name="dp" type="number" min="0" max="100" value="30"></label><label class="muted">Interest rate (% per year)<input class="form-input" name="rate" type="number" min="0" step="0.1" value="18"></label><label class="muted">Years<input class="form-input" name="yrs" type="number" min="1" max="30" value="10"></label><div id="mo" class="notice"></div></form></div>
+</main><div id="chrome-footer"></div><div id="toasts" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script><script src="js/supabase-client.js"></script><script src="js/app.js"></script><script src="js/aurora-bg.js"></script><script src="js/calculators.js"></script>
+</body></html>

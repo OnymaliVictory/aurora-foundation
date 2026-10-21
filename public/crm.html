@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CRM · Aurora Estates</title>
+<meta name="description" content="Contacts, follow-ups and activity timeline."><script src="js/theme-init.js"></script>
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/aurora-app.css" id="aurora-app-css"><link rel="stylesheet" href="css/aurora-shared.css"><link rel="stylesheet" href="css/estates.css"><script src="js/theme-init.js"></script></head>
+<body data-active="account"><canvas id="aurora-canvas" aria-hidden="true"></canvas><div id="chrome-nav"></div><main class="wrap">
+<h1 class="page-title">Contacts &amp; follow-ups</h1>
+<div class="glass-card pad stack"><h2 class="section-label">Today's follow-ups</h2><div id="fu"></div></div>
+<div class="row" style="margin:16px 0"><input class="form-input grow" id="q" placeholder="Search name, phone, email" aria-label="Search contacts"><button class="btn-primary" id="add">+ Add contact</button></div>
+<div id="list" class="stack"></div>
+<form id="form" class="glass-card pad stack" hidden><h2 class="section-label" id="ftitle">New contact</h2><input type="hidden" name="id">
+<div class="filters"><input class="form-input" name="name" placeholder="Name" required minlength="2"><input class="form-input" name="phone" placeholder="Phone"><input class="form-input" name="email" type="email" placeholder="Email">
+<select class="form-input" name="ctype" aria-label="Type"><option>buyer</option><option>seller</option><option>renter</option><option>landlord</option><option>investor</option></select>
+<select class="form-input" name="source" aria-label="Source"><option value="">Source</option><option>website</option><option>referral</option><option>open_house</option><option>phone</option><option>other</option></select>
+<input class="form-input" name="budget_min" type="number" min="0" placeholder="Budget min ₦"><input class="form-input" name="budget_max" type="number" min="0" placeholder="Budget max ₦"></div>
+<input class="form-input" name="preferred_areas" placeholder="Preferred areas (comma separated)"><input class="form-input" name="tags" placeholder="Tags, e.g. hot lead, needs financing">
+<label class="muted">Next follow-up<input class="form-input" type="date" name="next_follow_up"></label><textarea class="form-input" name="notes" rows="3" placeholder="Notes"></textarea>
+<div class="row"><button class="btn-primary">Save contact</button><button type="button" class="btn-secondary" id="cancel">Cancel</button><button type="button" class="btn-secondary" id="del" hidden>Delete</button></div></form>
+<div id="detail" class="glass-card pad stack" hidden></div>
+</main><div id="chrome-footer"></div><div id="toasts" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script><script src="js/supabase-client.js"></script><script src="js/app.js"></script><script src="js/aurora-bg.js"></script><script src="js/crm.js"></script>
+</body></html>

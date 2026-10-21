@@ -1,0 +1,3 @@
+{ "name": "aurora-estates", "version": "1.0.0", "private": true, "engines": { "node": ">=18" },
+  "scripts": { "start": "node supabase-backend/server/dev.js", "test": "node supabase-backend/server/tests/smoke.js" },
+  "dependencies": { "@supabase/supabase-js": "^2.45.4", "express": "^4.21.0" } }

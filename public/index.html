@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Find verified properties in Nigeria · Aurora Estates</title>
+<meta name="description" content="Search verified homes, land and short-lets across Nigeria."><script src="js/theme-init.js"></script>
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/aurora-app.css" id="aurora-app-css"><link rel="stylesheet" href="css/aurora-shared.css"><link rel="stylesheet" href="css/estates.css"><script src="js/theme-init.js"></script></head>
+<body data-active="home"><canvas id="aurora-canvas" aria-hidden="true"></canvas><div id="chrome-nav"></div><main class="wrap">
+<section class="glass-card pad center stack"><h1 class="page-title">Find a home you can trust</h1>
+<p class="muted">Verified agents. Declared and verified documents. Inspect before you pay.</p>
+<form id="hero-search" action="search.html" class="filters" style="text-align:left">
+<select class="form-input" name="purpose" aria-label="Purpose"><option value="rent">Rent</option><option value="sale">Buy</option><option value="shortlet">Short-let</option><option value="land">Land</option><option value="offplan">Off-plan</option></select>
+<select class="form-input" name="state" id="h-state" aria-label="State"><option value="">Any state</option></select>
+<input class="form-input" name="max" type="number" min="0" placeholder="Max budget (₦)" aria-label="Max budget">
+<button class="btn-primary">Search</button></form>
+<div class="row" style="justify-content:center"><a class="filter-chip" href="search.html?state=Lagos">Lagos</a><a class="filter-chip" href="search.html?state=FCT%20(Abuja)">Abuja</a><a class="filter-chip" href="search.html?state=Rivers">Port Harcourt</a><button class="filter-chip" id="near" type="button">📍 Near me</button></div>
+<div class="notice" role="note">⚠️ <span id="fraud"></span></div></section>
+<h2 class="section-label" style="margin:24px 0 12px">Verified &amp; latest listings</h2><div id="featured" class="grid"></div>
+</main><div id="chrome-footer"></div><div id="toasts" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script><script src="js/supabase-client.js"></script><script src="js/app.js"></script><script src="js/aurora-bg.js"></script><script src="js/index.js"></script>
+</body></html>

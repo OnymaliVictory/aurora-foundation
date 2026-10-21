@@ -1,0 +1,14 @@
+AuroraReady.then(async () => {
+  const me = await workspace('documents.html'); if (!me) return; const $ = id => document.getElementById(id);
+  const b64 = f => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(f); });
+  AuroraAPI.get('/crm/deals').then(d => d.items.filter(x => x.owner_id === me.id).forEach(x => $('dd').add(new Option((x.contact?.name || 'Deal') + ' – ' + (x.property?.title || ''), x.id)))).catch(() => {});
+  async function load() { try { const d = (await AuroraAPI.get('/crm/documents')).items, g = {}; d.forEach(x => (g[x.parent_id || x.id] ||= []).push(x));
+    $('list').innerHTML = Object.values(g).map(v => { v.sort((a, b) => b.version - a.version); const t = v[0]; return `<div class="glass-card pad stack"><div class="row"><b class="grow">${escapeHtml(t.name)}</b><span class="badge">${escapeHtml(t.category.replace('_', ' '))}</span><span class="badge ok">v${t.version}</span></div>
+      ${v.map(x => `<div class="row muted"><span class="grow">v${x.version} · ${new Date(x.created_at).toLocaleDateString()} · ${Math.round((x.size_bytes || 0) / 1024)} KB</span><button class="btn-secondary btn-sm" data-dl="${x.id}">Download</button></div>`).join('')}
+      ${t.owner_id === me.id ? `<div class="row"><label class="btn-secondary btn-sm">Upload new version<input type="file" hidden data-nv="${t.id}" accept="application/pdf,image/jpeg,image/png,image/webp"></label><button class="btn-secondary btn-sm" data-rm="${t.id}">Delete</button></div>` : ''}</div>`; }).join('') || '<p class="muted">No documents yet. Upload tenancy agreements, receipts, surveys and IDs here.</p>';
+    document.querySelectorAll('[data-dl]').forEach(b => b.onclick = async () => { try { window.open((await AuroraAPI.get(`/crm/documents/${b.dataset.dl}/url`)).url, '_blank', 'noopener'); } catch (e) { toast(e.message, 'error'); } });
+    document.querySelectorAll('[data-rm]').forEach(b => b.onclick = async () => { if (!confirm('Delete this document (this version)?')) return; try { await AuroraAPI.del('/crm/documents/' + b.dataset.rm); load(); } catch (e) { toast(e.message, 'error'); } });
+    document.querySelectorAll('[data-nv]').forEach(i => i.onchange = async () => { if (!i.files[0]) return; try { await AuroraAPI.post(`/crm/documents/${i.dataset.nv}/version`, { data: await b64(i.files[0]) }); toast('New version saved'); load(); } catch (e) { toast(e.message, 'error'); } }); } catch (e) { $('list').textContent = e.message; } }
+  $('up').onsubmit = async e => { e.preventDefault(); const f = $('file').files[0]; if (!f) return; const d = Object.fromEntries(new FormData(e.target)); delete d.undefined; if (!d.deal_id) delete d.deal_id; try { await AuroraAPI.post('/crm/documents', { ...d, name: d.name || f.name, data: await b64(f) }); e.target.reset(); toast('Uploaded'); load(); } catch (x) { toast(x.message, 'error'); } };
+  load();
+});

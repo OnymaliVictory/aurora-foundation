@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dashboard · Aurora Estates</title>
+<meta name="description" content="Manage your listings, enquiries and inspections."><script src="js/theme-init.js"></script>
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/aurora-app.css" id="aurora-app-css"><link rel="stylesheet" href="css/aurora-shared.css"><link rel="stylesheet" href="css/estates.css"><script src="js/theme-init.js"></script></head>
+<body data-active="account"><canvas id="aurora-canvas" aria-hidden="true"></canvas><div id="chrome-nav"></div><main class="wrap">
+<h1 class="page-title">Your dashboard</h1><div id="vbanner"></div>
+<div class="tabs" id="tabs"><button class="btn-secondary on" data-t="listings">Listings</button><button class="btn-secondary" data-t="new">+ New listing</button><button class="btn-secondary" data-t="leads">Leads</button><button class="btn-secondary" data-t="insp">Inspections</button><button class="btn-secondary" data-t="verify">Verification</button></div>
+<section id="listings"></section>
+<section id="new" hidden><form id="nf" class="glass-card pad stack"><div class="filters">
+<select class="form-input" name="purpose" required aria-label="Purpose"></select><select class="form-input" name="ptype" required aria-label="Type"></select>
+<select class="form-input" name="state" id="ns" required aria-label="State"><option value="">State</option></select><select class="form-input" name="lga" id="nl" required aria-label="LGA"><option value="">LGA</option></select></div>
+<input class="form-input" name="title" placeholder="Title, e.g. Spacious 3-bedroom flat in Lekki" required minlength="5" maxlength="120">
+<div class="filters"><input class="form-input" name="area" placeholder="Area / estate"><input class="form-input" name="street" placeholder="Street"><input class="form-input" name="landmarks" placeholder="Nearest landmarks"></div>
+<div class="filters"><input class="form-input" name="price" type="number" min="1" placeholder="Price (₦)" required><select class="form-input" name="price_period" aria-label="Price period"><option value="year">per year</option><option value="month">per month</option><option value="night">per night</option><option value="once">one-off (sale)</option></select>
+<input class="form-input" name="bedrooms" type="number" min="0" placeholder="Bedrooms"><input class="form-input" name="bathrooms" type="number" min="0" placeholder="Bathrooms"><input class="form-input" name="size_sqm" type="number" min="0" placeholder="Size (sqm)"></div>
+<div class="filters"><input class="form-input" name="agency_fee_pct" type="number" min="0" max="30" placeholder="Agency fee %"><input class="form-input" name="legal_fee_pct" type="number" min="0" max="30" placeholder="Legal fee %"><input class="form-input" name="caution_deposit" type="number" min="0" placeholder="Caution deposit ₦"><input class="form-input" name="service_charge" type="number" min="0" placeholder="Service charge ₦"></div>
+<div class="filters"><input class="form-input" name="electricity" placeholder="Electricity (e.g. 20 hrs, prepaid)"><input class="form-input" name="water" placeholder="Water (borehole…)"><input class="form-input" name="lat" type="number" step="any" placeholder="Latitude (optional)"><input class="form-input" name="lng" type="number" step="any" placeholder="Longitude (optional)"></div>
+<textarea class="form-input" name="description" rows="4" maxlength="4000" placeholder="Describe the property"></textarea>
+<div><b>Features</b><div class="row" id="feat"></div></div><div><b>Documents you have (declared; Aurora can verify later)</b><div class="row" id="docs"></div></div>
+<label class="row"><input type="checkbox" name="furnished"> Furnished</label>
+<label class="muted">Photos (up to 12, compressed automatically)<input class="form-input" type="file" id="photos" accept="image/jpeg,image/png,image/webp" multiple></label>
+<button class="btn-primary" id="nsave">Submit for approval</button><p id="nmsg" class="muted" role="status"></p></form></section>
+<section id="leads" hidden><div id="leadlist"></div><div id="thread" class="glass-card pad stack" hidden></div></section>
+<section id="insp" hidden><div id="insplist"></div></section>
+<section id="verify" hidden><div class="glass-card pad stack"><p class="muted">Verified agents get a ✔ badge and can publish unlimited listings. We check your ID and business details.</p><div id="vstatus"></div>
+<form id="vf" class="stack"><select class="form-input" name="id_type" required><option value="nin">NIN</option><option value="drivers_licence">Driver's licence</option><option value="voters_card">Voter's card</option><option value="intl_passport">International passport</option></select>
+<input class="form-input" name="business_name" placeholder="Agency / business name"><input class="form-input" name="cac_number" placeholder="CAC number (if registered)"><label class="muted">Photo of your ID (JPG/PNG/PDF, max 3MB; only you and admins can see it)<input class="form-input" type="file" id="vdoc" accept="image/jpeg,image/png,image/webp,application/pdf"></label><button class="btn-primary">Request verification</button></form></div></section>
+</main><div id="chrome-footer"></div><div id="toasts" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script><script src="js/supabase-client.js"></script><script src="js/app.js"></script><script src="js/aurora-bg.js"></script><script src="js/agent.js"></script>
+</body></html>
