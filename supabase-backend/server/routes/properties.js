@@ -5,7 +5,7 @@ const TYPES = ['flat', 'mini_flat', 'room_parlour', 'terrace', 'semi_detached', 
 const PERIODS = ['year', 'month', 'night', 'once'];
 const FEATURES = ['gated_estate', 'security', 'cctv', 'fence', 'borehole', 'generator', 'prepaid_meter', 'transformer', 'parking', 'bq', 'furnished', 'serviced', 'internet', 'good_road', 'swimming_pool', 'gym', 'air_conditioning'];
 const DOCS = ['c_of_o', 'governors_consent', 'deed_of_assignment', 'survey_plan', 'registered_title', 'excision_gazette', 'purchase_receipt', 'building_approval'];
-const SEL = '*, property_images(id,url,is_cover,position), owner:owner_id(id,full_name,verified,avatar_url)';
+const SEL = '*, property_images(id,url,is_cover,position), owner:owner_id(id,full_name,verified,avatar_url), company:company_id(slug,name,verified)';
 const PUBLIC_OK = p => p.status === 'active' && !p.auto_hidden && new Date(p.expires_at) > new Date();
 
 // Validates and allow-lists every field. Anything not listed here is ignored.
@@ -79,7 +79,8 @@ r.post('/', rateLimit(20), requireAuth, requireRole('agent', 'owner', 'admin'), 
     const { count } = await db().from('properties').select('id', { count: 'exact', head: true }).eq('owner_id', req.user.id).neq('status', 'removed');
     if (count >= 3) throw err(403, 'Unverified accounts can have up to 3 listings. Please request verification in your dashboard.');
   }
-  const { data, error } = await db().from('properties').insert({ ...o, owner_id: req.user.id, status: req.body.draft ? 'draft' : 'pending' }).select().single();
+  const { data: mem } = await db().from('company_members').select('company_id').eq('user_id', req.user.id).maybeSingle();
+  const { data, error } = await db().from('properties').insert({ ...o, owner_id: req.user.id, company_id: mem?.company_id || null, status: req.body.draft ? 'draft' : 'pending' }).select().single();
   if (error) throw error;
   const docs = (Array.isArray(req.body.documents) ? req.body.documents : []).filter(d => DOCS.includes(d));
   if (docs.length) await db().from('property_documents').insert(docs.map(d => ({ property_id: data.id, doc_type: d })));
@@ -88,7 +89,10 @@ r.post('/', rateLimit(20), requireAuth, requireRole('agent', 'owner', 'admin'), 
 
 async function owned(req) {
   const { data: p } = await db().from('properties').select('*').eq('id', needUuid(req.params.id)).single();
-  if (!p || (p.owner_id !== req.user.id && req.user.role !== 'admin')) throw err(404, 'Listing not found.');
+  if (!p || (p.owner_id !== req.user.id && req.user.role !== 'admin')) {
+    if (p?.company_id) { const { data: m } = await db().from('company_members').select('role').eq('user_id', req.user.id).eq('company_id', p.company_id).maybeSingle(); if (m && ['owner', 'admin'].includes(m.role)) return p; }   // company admins manage their company's listings
+    throw err(404, 'Listing not found.');
+  }
   return p;
 }
 r.patch('/:id', rateLimit(40), requireAuth, wrap(async (req, res) => {

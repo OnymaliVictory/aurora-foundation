@@ -17,6 +17,9 @@ const srv = http.createServer(app).listen(0, async () => {
     assert.strictEqual(unconfigured.s, 503); assert.ok(!/SUPABASE|stack|at /.test(JSON.stringify(unconfigured.j)), 'errors must be masked');
     for (const u of ['/api/crm/contacts', '/api/crm/deals', '/api/crm/documents', '/api/crm/reports', '/api/saved-searches']) assert.strictEqual((await call('GET', u)).s, 401, u + ' must require login');
     assert.strictEqual((await call('POST', '/api/agents/00000000-0000-0000-0000-000000000000/reviews', {})).s, 401);
+    for (const u of ['/api/companies/mine', '/api/companies/mine/overview']) assert.strictEqual((await call('GET', u)).s, 401, u + ' must require login');
+    assert.strictEqual((await call('POST', '/api/companies', {})).s, 401);
+    assert.strictEqual((await call('GET', '/api/companies/some-company')).s, 503);   // no DB configured, masked message
     assert.strictEqual((await call('GET', '/api/cron/expire')).s, 401);
     assert.strictEqual(sniff(Buffer.from('<?php echo 1; ?>-----')), null);                       // script disguised as image is rejected
     assert.ok(sniff(Buffer.from([0xFF, 0xD8, 0xFF, 0xE0, 0, 0, 0, 0, 0, 0, 0, 0, 0])));          // real JPEG header accepted

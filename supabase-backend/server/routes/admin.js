@@ -24,8 +24,8 @@ r.get('/properties', wrap(async (req, res) => {
 }));
 r.post('/properties/:id/decide', wrap(async (req, res) => {
   const ok = req.body?.approve === true, reason = text(req.body?.reason, 300);
-  const { data: p } = await db().from('properties').select('id,owner_id,title,owner:owner_id(verified)').eq('id', needUuid(req.params.id)).single(); if (!p) throw err(404, 'Not found.');
-  if (ok && !p.owner.verified) throw err(409, 'Verify this agent first. Listings only go public for verified accounts.');
+  const { data: p } = await db().from('properties').select('id,owner_id,title,owner:owner_id(verified), company:company_id(verified)').eq('id', needUuid(req.params.id)).single(); if (!p) throw err(404, 'Not found.');
+  if (ok && !p.owner.verified && !p.company?.verified) throw err(409, 'Verify this agent (or their company) first. Listings only go public for verified accounts.');
   if (!ok && !reason) throw err(400, 'Please give a reason for rejecting.');
   await db().from('properties').update(ok ? { status: 'active', auto_hidden: false, reject_reason: null, expires_at: new Date(Date.now() + 60 * 864e5).toISOString() } : { status: 'rejected', reject_reason: reason }).eq('id', p.id);
   await notify(p.owner_id, 'listing', ok ? `“${p.title}” is now live` : `“${p.title}” was rejected: ${reason}`);
@@ -69,4 +69,7 @@ r.post('/users/:id/team', wrap(async (req, res) => {
   await db().from('profiles').update({ team_id: req.body?.team_id || null, ...(role ? { role } : {}) }).eq('id', needUuid(req.params.id)); await audit(req.user.id, 'user_team', 'profile', req.params.id, req.body); res.json({ ok: true });
 }));
 r.get('/audit', wrap(async (_q, res) => { const { data } = await db().from('audit_log').select('*').order('created_at', { ascending: false }).limit(100); res.json({ items: data }); }));
+r.get('/companies', wrap(async (_q, res) => { const { data } = await db().from('companies').select('id,slug,name,verified,status,created_at,owner:owner_id(full_name)').order('created_at', { ascending: false }).limit(100); res.json({ items: data }); }));
+r.post('/companies/:id/verify', wrap(async (req, res) => { const v = req.body?.verified === true; await db().from('companies').update({ verified: v }).eq('id', needUuid(req.params.id)); await audit(req.user.id, v ? 'company_verify' : 'company_unverify', 'company', req.params.id); res.json({ ok: true }); }));
+r.post('/companies/:id/status', wrap(async (req, res) => { const st = req.body?.status; if (!['active', 'suspended'].includes(st)) throw err(400, 'Invalid status.'); await db().from('companies').update({ status: st }).eq('id', needUuid(req.params.id)); await audit(req.user.id, 'company_' + st, 'company', req.params.id); res.json({ ok: true }); }));
 module.exports = r;

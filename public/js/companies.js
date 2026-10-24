@@ -1,0 +1,4 @@
+AuroraReady.then(async () => { const box = document.getElementById('list');
+  try { const d = await AuroraAPI.get('/companies'); box.innerHTML = d.items.map(c => `<a class="pcard pad stack" href="c/${encodeURIComponent(c.slug)}" style="border-top:4px solid ${escapeHtml(c.brand_color)}">
+    <div class="row">${safeUrl(c.logo_url) ? `<img src="${escapeHtml(safeUrl(c.logo_url))}" alt="" width="48" height="48" loading="lazy" style="border-radius:12px;object-fit:cover">` : '<span style="font-size:2rem">🏢</span>'}<div class="grow"><b>${escapeHtml(c.name)}</b><br><span class="muted">${escapeHtml(c.slug)}.aurora</span></div></div>
+    <div>${c.verified ? '<span class="badge ok">✔ Verified company</span>' : ''}</div><div class="muted">${escapeHtml(c.tagline || c.state || '')}</div></a>`).join('') || '<p class="muted">No companies yet. Be the first!</p>'; } catch (e) { box.textContent = e.message; } });

@@ -70,7 +70,7 @@ async function wireHearts(root, savedIds) {
 function skeletons(el, n = 6) { el.innerHTML = Array(n).fill('<div class="skeleton"></div>').join(''); }
 function mountChrome(active) {
   const u = AuroraAuth.getCached();
-  const links = [['Buy', 'search.html?purpose=sale'], ['Rent', 'search.html?purpose=rent'], ['Short-let', 'search.html?purpose=shortlet'], ['Land', 'search.html?purpose=land']];
+  const links = [['Buy', 'search.html?purpose=sale'], ['Rent', 'search.html?purpose=rent'], ['Short-let', 'search.html?purpose=shortlet'], ['Land', 'search.html?purpose=land'], ['Companies', 'companies.html']];
   const acct = !u ? '<a class="nav-link" href="auth.html">Sign in</a>'
     : `${['agent', 'owner', 'manager'].includes(u.role) ? '<a class="nav-link" href="' + (u.role === 'manager' ? 'crm.html' : 'agent.html') + '">Workspace</a>' : ''}<a class="nav-link" href="notifications.html">🔔</a>${u.role === 'admin' ? '<a class="nav-link" href="admin.html">Admin</a>' : ''}<a class="nav-link" href="#" id="logout-link">Log out</a>`;
   document.getElementById('chrome-nav').innerHTML = `<nav class="navbar" aria-label="Main"><a href="index.html" class="nav-logo">✦ AURORA<span class="brand-sub">ESTATES</span></a>
@@ -91,7 +91,7 @@ const AuroraReady = (async () => {
 async function workspace(active) {
   const u = await AuroraAuth.requireAuth(); if (!u) return null;
   if (!['agent', 'owner', 'manager', 'admin'].includes(u.role)) { document.querySelector('.wrap').innerHTML = '<div class="glass-card pad"><p>This area is for agents and owners. Create an account as an agent or owner to use it.</p></div>'; return null; }
-  const L = [['agent.html', 'Listings'], ['crm.html', 'CRM'], ['pipeline.html', 'Pipeline'], ['documents.html', 'Documents'], ['reports.html', 'Reports'], ['calculators.html', 'Calculators']];
+  const L = [['agent.html', 'Listings'], ['crm.html', 'CRM'], ['pipeline.html', 'Pipeline'], ['documents.html', 'Documents'], ['reports.html', 'Reports'], ['calculators.html', 'Calculators'], ['company-dashboard.html', 'Company']];
   document.querySelector('.wrap').insertAdjacentHTML('afterbegin', `<div class="tabs" role="navigation" aria-label="Workspace">${L.map(l => `<a class="btn-secondary btn-sm ${l[0] === active ? 'on' : ''}" href="${l[0]}">${l[1]}</a>`).join('')}</div>`);
   return u;
 }

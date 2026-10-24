@@ -6,7 +6,7 @@ Plain steps, exact clicks. Do them in order.
 1. Go to supabase.com → **New project** (use a NEW project, not the Marketplace one). Wait until it says ready.
 2. Left menu → **SQL Editor** → **New query**.
 3. Open `supabase-backend/migrations/001_phase1.sql`, copy everything, paste, click **Run**. "Success" is expected. It is safe to run again.
-   **Then do the same with `supabase-backend/migrations/002_phase2_3.sql`** (CRM, deals, documents, reviews, teams…).
+   **Then do the same with `002_phase2_3.sql` and then `003_companies.sql`** (CRM, documents, reviews, teams, company pages).
 4. Left menu → **Project Settings → API**. Copy three things: **Project URL**, **anon public** key, **service_role** key (keep this one secret).
 5. **Authentication → Providers → Email**: for quick testing turn **Confirm email** OFF (turn it back ON before launch).
 
@@ -66,3 +66,10 @@ Email + push notifications and saved-search email ALERTS (saved searches are sto
 
 ## Next best step
 Run `npm test`, then the checklist above; send me anything that breaks and I will fix it before starting Phase 2.
+
+## Company pages (new)
+- Companies register at `company-register.html`, get a page at `/c/<name>` (shown as `<name>.aurora`), and manage everything at `company-dashboard.html`.
+- Their agents join with the invite code; every listing an agent posts attaches to the company automatically.
+- Admin → **Companies** tab: verify or suspend a company. A listing from a verified company can be approved even if the individual agent is not yet verified.
+- `.aurora` is not a real internet address ending, so nobody can register `acme.aurora`. When you buy a domain (for example `aurora-estates.ng`), add `*.aurora-estates.ng` in Vercel → Domains and tell me; I will add the `acme.aurora-estates.ng` routing.
+- Limitation: link previews (WhatsApp, Facebook) show the generic Aurora title, not each company's, because pages are static. A server-rendered version is the next upgrade.

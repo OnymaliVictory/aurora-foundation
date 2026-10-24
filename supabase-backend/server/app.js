@@ -6,6 +6,7 @@ app.get('/api/health', (_q, res) => res.json({ ok: true }));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/locations', require('./routes/locations'));
 app.use('/api/properties', require('./routes/properties'));
+app.use('/api/companies', require('./routes/companies'));
 app.use('/api/admin', require('./routes/admin'));
 const crm = require('./routes/crm');
 app.use('/api/crm', crm.crm); app.use('/api/agents', crm.agents); app.use('/api', crm.misc);
